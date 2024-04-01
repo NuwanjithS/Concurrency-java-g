@@ -119,14 +119,16 @@ public class BankAccount {
 	}
 	
 	public synchronized void addInterest(double amount) {
-		if(amount > 0) {
-			this.balance += amount;
-			System.out.println(Thread.currentThread().getName()+" Interest is add to account "+this.accountNumber);
-			System.out.println("Interest Amount  "+amount+" balance after interest is added "+this.balance);
+		// Check for positive balance before adding interest
+		if (this.balance > 0) {
+		  this.balance += amount;
+		  System.out.println(Thread.currentThread().getName() + " Interest is added to account " + this.accountNumber);
+		  System.out.println("Interest Amount  " + amount + " balance after interest is added " + this.balance);
 		} else {
-			throw new IllegalArgumentException("Interest Amount cannot be 0 or below");
+		  // No interest on zero or negative balance
+		  System.out.println(Thread.currentThread().getName() + " No interest earned for account " + this.accountNumber + " (balance is " + this.balance + ")");
 		}
-	}
+	  }
 	
 	public synchronized void deductIncomeTax(double amount) {
 		if(amount > 0) {
